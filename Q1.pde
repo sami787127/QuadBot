@@ -82,21 +82,26 @@ final float[][] LOWER_ARM = {
   { 0.464, -0.225 }
 };
 
-final float[][] MOUTH = {
-  {-0.1, 0.33},
-  {0.1, 0.33},
-  {0.1,0.3},
-  {-0.1,0.3}
-};
+//final float[][] MOUTH = {
+//  {-0.1, 0.33},
+//  {0.1, 0.33},
+//  {0.1,0.3},
+//  {-0.1,0.3}
+//};
 
 void setup(){
   size(640, 640, P3D);
   ortho(-1,1,1,-1);
   resetMatrix();
+  noLoop();
 }
 
 
 void draw(){
+  //background(152,251,152);
+  //translate(-0.5, 0.5);
+  //rotate(PI/3f);
+  //scale(1.0/3f);
   drawQuadBot();
 }
 
@@ -123,11 +128,12 @@ void drawQuadBot(){
   drawUpperLeftArm();
   drawLowerRightArm();
   drawLowerLeftArm();
-  drawMouth();
+  //drawMouth();
 }
 
 void drawHead(){
   beginShape(QUADS);
+  fill(30,144,255);
   for(int i = 0; i<HEAD.length; i++){
     vertex(HEAD[i][0], HEAD[i][1]);
   }
@@ -137,6 +143,7 @@ void drawHead(){
 
 void drawRightEyeBrow(){
   beginShape(QUADS);
+  fill(189,183,107);
   for(int i = 0; i<EYEBROW.length; i++){
     vertex(EYEBROW[i][0], EYEBROW[i][1]);
   }
@@ -144,16 +151,14 @@ void drawRightEyeBrow(){
   endShape();
 }
 void drawLeftEyeBrow(){
-  beginShape(QUADS);
-  for(int i = 0; i<EYEBROW.length; i++){
-    vertex(-1*EYEBROW[i][0], EYEBROW[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0, 1.0);
+  drawRightEyeBrow();
+  resetMatrix();
 }
 
 void drawRightEye(){
   beginShape(QUADS);
+  fill(255,255,224);
   for(int i = 0; i<EYE.length; i++){
     vertex(EYE[i][0], EYE[i][1]);
   }
@@ -162,16 +167,14 @@ void drawRightEye(){
 }
 
 void drawLeftEye(){
-  beginShape(QUADS);
-  for(int i = 0; i<EYE.length; i++){
-    vertex(-1*EYE[i][0], EYE[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawRightEye();
+  resetMatrix();
 }
 
 void drawRightEyeBall(){
   beginShape(QUADS);
+  fill(0,255,0);
   for(int i = 0; i<EYEBALL.length; i++){
     vertex(EYEBALL[i][0], EYEBALL[i][1]);
   }
@@ -179,16 +182,14 @@ void drawRightEyeBall(){
   endShape();
 }
 void drawLeftEyeBall(){
-  beginShape(QUADS);
-  for(int i = 0; i<EYEBALL.length; i++){
-    vertex(-1*EYEBALL[i][0], EYEBALL[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawRightEyeBall();
+  resetMatrix();
 }
 
 void drawNose(){
   beginShape(QUADS);
+  fill(255,0,0);
   for(int i = 0; i<NOSE.length; i++){
     vertex(NOSE[i][0], NOSE[i][1]);
   }
@@ -198,6 +199,7 @@ void drawNose(){
 
 void drawLowerRightAntenna(){
   beginShape(QUADS);
+  fill(192,192,192);
   for(int i = 0; i<LOWER_ANTENNA.length; i++){
     vertex(LOWER_ANTENNA[i][0], LOWER_ANTENNA[i][1]);
   }
@@ -206,16 +208,14 @@ void drawLowerRightAntenna(){
 }
 
 void drawLowerLeftAntenna(){
-  beginShape(QUADS);
-  for(int i = 0; i<LOWER_ANTENNA.length; i++){
-    vertex(-1*LOWER_ANTENNA[i][0], LOWER_ANTENNA[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawLowerRightAntenna();
+  resetMatrix();
 }
 
 void drawUpperRightAntenna(){
   beginShape(QUADS);
+  fill(192,192,192);
   for(int i = 0; i<UPPER_ANTENNA.length; i++){
     vertex(UPPER_ANTENNA[i][0], UPPER_ANTENNA[i][1]);
   }
@@ -224,16 +224,14 @@ void drawUpperRightAntenna(){
 }
 
 void drawUpperLeftAntenna(){
-  beginShape(QUADS);
-  for(int i = 0; i<UPPER_ANTENNA.length; i++){
-    vertex(-1*UPPER_ANTENNA[i][0], UPPER_ANTENNA[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawUpperRightAntenna();
+  resetMatrix();
 }
 
 void drawTorso(){
   beginShape(QUADS);
+  fill(75,0,130);
   for(int i = 0; i<TORSO.length; i++){
     vertex(TORSO[i][0], TORSO[i][1]);
   }
@@ -243,6 +241,7 @@ void drawTorso(){
 
 void drawUpperRightLeg(){
   beginShape(QUADS);
+  fill(255,255,0);
   for(int i = 0; i<UPPER_LEG.length; i++){
     vertex(UPPER_LEG[i][0], UPPER_LEG[i][1]);
   }
@@ -250,15 +249,13 @@ void drawUpperRightLeg(){
   endShape();
 }
 void drawUpperLeftLeg(){
-  beginShape(QUADS);
-  for(int i = 0; i<UPPER_LEG.length; i++){
-    vertex(-1*UPPER_LEG[i][0], UPPER_LEG[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawUpperRightLeg();
+  resetMatrix();
 }
 void drawLowerRightLeg(){
   beginShape(QUADS);
+  fill(255,255,0);
   for(int i = 0; i<LOWER_LEG.length; i++){
     vertex(LOWER_LEG[i][0], LOWER_LEG[i][1]);
   }
@@ -266,15 +263,13 @@ void drawLowerRightLeg(){
   endShape();
 }
 void drawLowerLeftLeg(){
-  beginShape(QUADS);
-  for(int i = 0; i<LOWER_LEG.length; i++){
-    vertex(-1*LOWER_LEG[i][0], LOWER_LEG[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawLowerRightLeg();
+  resetMatrix();
 }
 void drawUpperRightArm(){
   beginShape(QUADS);
+  fill(72,61,139);
   for(int i = 0; i<UPPER_ARM.length; i++){
     vertex(UPPER_ARM[i][0], UPPER_ARM[i][1]);
   }
@@ -282,15 +277,13 @@ void drawUpperRightArm(){
   endShape();
 }
 void drawUpperLeftArm(){
-  beginShape(QUADS);
-  for(int i = 0; i<UPPER_ARM.length; i++){
-    vertex(-1*UPPER_ARM[i][0], UPPER_ARM[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawUpperRightArm();
+  resetMatrix();
 }
 void drawLowerRightArm(){
   beginShape(QUADS);
+  fill(72,61,139);
   for(int i = 0; i<LOWER_ARM.length; i++){
     vertex(LOWER_ARM[i][0], LOWER_ARM[i][1]);
   }
@@ -298,19 +291,16 @@ void drawLowerRightArm(){
   endShape();
 }
 void drawLowerLeftArm(){
-  beginShape(QUADS);
-  for(int i = 0; i<LOWER_ARM.length; i++){
-    vertex(-1*LOWER_ARM[i][0], LOWER_ARM[i][1]);
-  }
-  
-  endShape();
+  scale(-1.0,1.0);
+  drawLowerRightArm();
+  resetMatrix();
 }
 
-void drawMouth(){
-  beginShape(QUADS);
-  for(int i = 0; i<MOUTH.length; i++){
-    vertex(MOUTH[i][0], MOUTH[i][1]);
-  }
+//void drawMouth(){
+//  beginShape(QUADS);
+//  for(int i = 0; i<MOUTH.length; i++){
+//    vertex(MOUTH[i][0], MOUTH[i][1]);
+//  }
   
-  endShape();
-}
+//  endShape();
+//}
