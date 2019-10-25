@@ -88,7 +88,7 @@ final float[][] LOWER_ARM = {
 //  {0.1,0.3},
 //  {-0.1,0.3}
 //};
-
+final float ONE_THIRD = ((1.0-2.0/3.0)+2.0/6);
 void setup(){
   size(640, 640, P3D);
   ortho(-1,1,1,-1);
@@ -98,14 +98,136 @@ void setup(){
 
 
 void draw(){
-  //background(152,251,152);
+  background(152,251,152);
   //translate(-0.5, 0.5);
   //rotate(PI/3f);
-  //scale(1.0/3f);
+  scale(1.0/3f);
   drawQuadBot();
+  resetMatrix();
+  
+ drawQuadBot1();
+ resetMatrix();
+ drawQuadBot2();
+ drawQuadBot3();
+ drawQuadBot4();
+  
+ 
+  
+}
+
+void drawQuadBot1(){
+  pushMatrix();
+  translate(-ONE_THIRD,ONE_THIRD);
+  
+  rotate(PI/3);
+  scale(1.0/3f);
+  drawQuadBot();
+  popMatrix();
+}
+
+void drawQuadBot2(){
+  pushMatrix();
+  //to put the quadbot at the ground, we need to know where the y value of foot of the quadbot ends up after scaling
+  
+  float afterSingleScaleY = -0.969*(1.0/3);
+  float afterDoubleScaleY = afterSingleScaleY*(0.65);
+  float originY = (1.0-2.0/3)+abs(afterDoubleScaleY);
+  
+  translate(0, originY);
+  scale(0.8,0.65);
+  scale(1.0/3);
+  printMatrix();
+  drawQuadBot();
+  popMatrix();
+  
+}
+
+void drawQuadBot3(){
+  float[] headCenter = getHeadCenter();
+  float headCenterX = headCenter[0];
+  float headCenterY = headCenter[1];
+  
+  pushMatrix();
+  translate(ONE_THIRD, ONE_THIRD);
+  scale(2.25);
+  scale(1.0/3.0);
+  translate(-headCenterX, -headCenterY);
+  drawHead();
+  drawTotalHead();
+  
+  popMatrix();
+  
+}
+
+
+void drawQuadBot4(){
+ 
+  pushMatrix();
+  translate(-ONE_THIRD, 0);
+  scale(1.0/3.0);
+  rotate(PI/12);
+  drawTotalHead();
+  popMatrix();
+  pushMatrix();
+  translate(-ONE_THIRD, 0);
+  scale(1.0/3.0);
+  drawTorso();
+  drawUpperRightLeg();
+  drawUpperLeftLeg();
+  drawLowerRightLeg();
+  drawLowerLeftLeg();
+  drawUpperRightArm();
+  drawUpperLeftArm();
+  drawLowerRightArm();
+  popMatrix();
+  pushMatrix();
+  float armX = 0.0;
+  float armY = 0.0;
+  for(int i = 0; i<2; i++){
+    armX += LOWER_ARM[i][0];
+    armY += LOWER_ARM[i][1];
+  }
+  armX = armX/2.0;
+  armY = armY/2.0;
+  translate(-ONE_THIRD, 0);
+  scale(1.0/3.0);
+  translate(-armX, armY);
+  rotate(-(PI/3+PI/2));
+  translate(armX, -armY);
+  drawLowerLeftArm();
+  popMatrix();
+  //drawMouth();
+  
+  
+  
+}
+
+float[] getHeadCenter(){
+  float headCenterX = 0.0;
+  float headCenterY = 0.0;
+  for(int i = 0; i<HEAD.length; i++){
+    headCenterX += HEAD[i][0];
+    headCenterY += HEAD[i][1];
+  }
+  headCenterX = headCenterX/4.0;
+  headCenterY = headCenterY/4.0;
+  return new float[]{headCenterX, headCenterY};
 }
 
 void drawQuadBot(){
+  drawTotalHead();
+  drawTorso();
+  drawUpperRightLeg();
+  drawUpperLeftLeg();
+  drawLowerRightLeg();
+  drawLowerLeftLeg();
+  drawUpperRightArm();
+  drawUpperLeftArm();
+  drawLowerRightArm();
+  drawLowerLeftArm();
+  //drawMouth();
+}
+void drawTotalHead(){
   drawHead();
   drawRightEyeBrow();
   drawLeftEyeBrow();
@@ -119,16 +241,6 @@ void drawQuadBot(){
   drawLowerLeftAntenna();
   drawUpperRightAntenna();
   drawUpperLeftAntenna();
-  drawTorso();
-  drawUpperRightLeg();
-  drawUpperLeftLeg();
-  drawLowerRightLeg();
-  drawLowerLeftLeg();
-  drawUpperRightArm();
-  drawUpperLeftArm();
-  drawLowerRightArm();
-  drawLowerLeftArm();
-  //drawMouth();
 }
 
 void drawHead(){
@@ -151,9 +263,10 @@ void drawRightEyeBrow(){
   endShape();
 }
 void drawLeftEyeBrow(){
+  pushMatrix();
   scale(-1.0, 1.0);
   drawRightEyeBrow();
-  resetMatrix();
+  popMatrix();
 }
 
 void drawRightEye(){
@@ -167,9 +280,10 @@ void drawRightEye(){
 }
 
 void drawLeftEye(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawRightEye();
-  resetMatrix();
+  popMatrix();
 }
 
 void drawRightEyeBall(){
@@ -182,9 +296,10 @@ void drawRightEyeBall(){
   endShape();
 }
 void drawLeftEyeBall(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawRightEyeBall();
-  resetMatrix();
+  popMatrix();
 }
 
 void drawNose(){
@@ -208,9 +323,10 @@ void drawLowerRightAntenna(){
 }
 
 void drawLowerLeftAntenna(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawLowerRightAntenna();
-  resetMatrix();
+  popMatrix();
 }
 
 void drawUpperRightAntenna(){
@@ -224,9 +340,10 @@ void drawUpperRightAntenna(){
 }
 
 void drawUpperLeftAntenna(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawUpperRightAntenna();
-  resetMatrix();
+  popMatrix();
 }
 
 void drawTorso(){
@@ -249,9 +366,10 @@ void drawUpperRightLeg(){
   endShape();
 }
 void drawUpperLeftLeg(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawUpperRightLeg();
-  resetMatrix();
+  popMatrix();
 }
 void drawLowerRightLeg(){
   beginShape(QUADS);
@@ -263,9 +381,10 @@ void drawLowerRightLeg(){
   endShape();
 }
 void drawLowerLeftLeg(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawLowerRightLeg();
-  resetMatrix();
+  popMatrix();
 }
 void drawUpperRightArm(){
   beginShape(QUADS);
@@ -277,9 +396,10 @@ void drawUpperRightArm(){
   endShape();
 }
 void drawUpperLeftArm(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawUpperRightArm();
-  resetMatrix();
+  popMatrix();
 }
 void drawLowerRightArm(){
   beginShape(QUADS);
@@ -291,9 +411,10 @@ void drawLowerRightArm(){
   endShape();
 }
 void drawLowerLeftArm(){
+  pushMatrix();
   scale(-1.0,1.0);
   drawLowerRightArm();
-  resetMatrix();
+  popMatrix();
 }
 
 //void drawMouth(){
