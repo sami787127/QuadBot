@@ -112,6 +112,7 @@ void draw(){
  drawQuadBot4();
  drawQuadBot6();
  drawQuadBot7();
+ drawQuadBot8();
  
   
 }
@@ -306,6 +307,9 @@ void drawQuadBot7(){
   
   float[] headCentre = getCenter(HEAD);
   float angle  = 0;
+  
+  
+  //draw 12 quadbot head equally spaced around the usual center
   while(angle<=(2.0*PI)){
     pushMatrix();
     rotate(angle);
@@ -316,6 +320,66 @@ void drawQuadBot7(){
     angle += (2.0*PI)/12.0;
     popMatrix();
   }
+  popMatrix();
+}
+
+void drawQuadBot8(){
+  pushMatrix();
+  translate(0,-ONE_THIRD);
+  scale(1.0/3.0);
+  drawTotalHead();
+  drawTorso();
+  
+  
+  float upperRLegX = ((UPPER_LEG[0][0]+UPPER_LEG[1][0])+0.0)/2.0;
+  float upperRLegY = ((UPPER_LEG[0][1]+UPPER_LEG[1][1])+0.0)/2.0;
+  pushMatrix();
+  translate(upperRLegX, upperRLegY);
+  rotate(PI/6.0);
+  translate(-upperRLegX, -upperRLegY);
+  drawUpperRightLeg();
+   drawLowerRightLeg();
+  popMatrix();
+  
+  float upperLLegX = (-(UPPER_LEG[0][0]+UPPER_LEG[1][0])+0.0)/2.0;
+  float upperLLegY = ((UPPER_LEG[0][1]+UPPER_LEG[1][1])+0.0)/2.0;
+  pushMatrix();
+  translate(upperLLegX, upperLLegY);
+  rotate(-PI/6.0);
+  translate(-upperLLegX, -upperLLegY);
+  drawUpperLeftLeg();
+  drawLowerLeftLeg();
+  popMatrix();
+  
+  //float lowerRArmX = ((LOWER_ARM[0][0]+LOWER_ARM[1][0])+0.0)/2.0;
+  //float lowerRArmY = ((LOWER_ARM[0][1]+LOWER_ARM[1][1])+0.0)/2.0;
+  float upperRArmX = ((UPPER_ARM[1][0]+UPPER_ARM[2][0])+0.0)/2.0;
+  float upperRArmY = ((UPPER_ARM[1][1]+UPPER_ARM[2][1])+0.0)/2.0;
+  pushMatrix();
+  //translate(0,-ONE_THIRD);
+  //scale(1.0/3.0);
+  translate(upperRArmX, upperRArmY);
+  rotate(PI/6.0);
+  scale(1, -1);
+  translate(-upperRArmX, -upperRArmY);
+  drawUpperRightArm();
+  drawLowerRightArm();
+  popMatrix();
+  
+  
+  float upperLArmX = (-(UPPER_ARM[1][0]+UPPER_ARM[2][0])+0.0)/2.0;
+  float upperLArmY = ((UPPER_ARM[1][1]+UPPER_ARM[2][1])+0.0)/2.0;
+  pushMatrix();
+  //translate(0,-ONE_THIRD);
+  //scale(1.0/3.0);
+  translate(upperLArmX, upperLArmY);
+  rotate(-PI/6.0);
+  scale(1, -1);
+  translate(-upperLArmX, -upperLArmY);
+  drawUpperLeftArm();
+  drawLowerLeftArm();
+  popMatrix();
+  
   popMatrix();
 }
 
