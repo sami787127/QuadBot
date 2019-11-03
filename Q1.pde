@@ -113,6 +113,7 @@ void draw(){
  drawQuadBot6();
  drawQuadBot7();
  drawQuadBot8();
+ drawQuadBot9();
  
   
 }
@@ -383,6 +384,198 @@ void drawQuadBot8(){
   popMatrix();
 }
 
+void drawQuadBot9(){
+  float[] rotPoint = getCenter(HEAD);
+  float angle1 = random(0, 2*PI);
+  float angle2 = random(0, 2*PI);
+  float angle3 = random(0, 2*PI);
+  float angle4 = random(0, 2*PI);
+  float angle5 = random(0, 2*PI);
+  float angle6 = random(0, 2*PI);
+  float x = random(-0.5, 0.5);
+  float y = random(-0.5, 0.5);
+  while(sqrt( sq(x)+sq(y) )>0.5){
+    x = random(0, 1);
+    y = random(0, 1);
+  }
+  
+ 
+  pushMatrix();
+  translate(ONE_THIRD, -ONE_THIRD);
+  
+  scale(1.0/3.0);
+  translate(x, y);
+  rotate(angle1);
+ 
+  
+  
+  translate(-rotPoint[0], -rotPoint[1]);
+  //draw randomly
+  drawHead();
+  drawRightEyeBrow();
+  drawLeftEyeBrow();
+  drawRightEye();
+  drawLeftEye();
+  drawRightEyeBall();
+  drawLeftEyeBall();
+  drawRightEyeBall();
+  drawNose();
+  drawLowerRightAntenna();
+  drawLowerLeftAntenna();
+  drawUpperRightAntenna();
+  drawUpperLeftAntenna();
+  popMatrix();
+  
+  
+  x = random(-0.5, 0.5);
+  y = random(-0.5, 0.5);
+  while(sqrt( sq(x)+sq(y) )>0.5){
+    x = random(0, 1);
+    y = random(0, 1);
+  }
+  rotPoint = getCenter(TORSO);
+  pushMatrix();
+  translate(ONE_THIRD, -ONE_THIRD);
+  
+  scale(1.0/3.0);
+  translate(x, y);
+  rotate(angle2);
+  translate(-rotPoint[0], -rotPoint[1]);
+  drawTorso();
+  popMatrix();
+  
+  
+  
+  //draw randomly right leg===
+  x = random(-0.5, 0.5);
+  y = random(-0.5, 0.5);
+  while(sqrt( sq(x)+sq(y) )>0.5){
+    x = random(0, 1);
+    y = random(0, 1);
+  }
+  float[][] legRight = new float[UPPER_LEG.length+LOWER_LEG.length][2];
+  int count = 0;
+  for(int i = 0; i<UPPER_LEG.length; i++){
+    legRight[count++] = UPPER_LEG[i];
+  }
+  for(int i = 0; i<LOWER_LEG.length; i++){
+    legRight[count++] = LOWER_LEG[i];
+  }
+  
+  rotPoint = getCenter(legRight);
+  pushMatrix();
+  translate(ONE_THIRD, -ONE_THIRD);
+  
+  scale(1.0/3.0);
+  translate(x, y);
+  rotate(angle2);
+  translate(-rotPoint[0], -rotPoint[1]);
+  drawUpperRightLeg();
+  drawLowerRightLeg();
+  popMatrix();
+  
+  
+  
+  //draw randomly left leg===
+  x = random(-0.5, 0.5);
+  y = random(-0.5, 0.5);
+  while(sqrt( sq(x)+sq(y) )>0.5){
+    x = random(0, 1);
+    y = random(0, 1);
+  }
+  float[][] legLeft = new float[UPPER_LEG.length+LOWER_LEG.length][2];
+  count = 0;
+  for(int i = 0; i<UPPER_LEG.length; i++){
+    legLeft[count][0] = -UPPER_LEG[i][0];
+    legLeft[count][1] = UPPER_LEG[i][1];
+    count++;
+  }
+  for(int i = 0; i<LOWER_LEG.length; i++){
+    legLeft[count][0] = -LOWER_LEG[i][0];
+    legLeft[count][1] = LOWER_LEG[i][1];
+    count++;
+  }
+  
+  rotPoint = getCenter(legLeft);
+  pushMatrix();
+  translate(ONE_THIRD, -ONE_THIRD);
+  
+  scale(1.0/3.0);
+  translate(x, y);
+  rotate(angle3);
+  translate(-rotPoint[0], -rotPoint[1]);
+  drawUpperLeftLeg();
+  drawLowerLeftLeg();
+  popMatrix();
+  
+  
+  
+  //draw randomly right arm===
+  x = random(-0.5, 0.5);
+  y = random(-0.5, 0.5);
+  while(sqrt( sq(x)+sq(y) )>0.5){
+    x = random(0, 1);
+    y = random(0, 1);
+  }
+  float[][] armRight = new float[UPPER_ARM.length+LOWER_ARM.length][2];
+  count = 0;
+  for(int i = 0; i<UPPER_ARM.length; i++){
+    armRight[count++] = UPPER_ARM[i];
+  }
+  for(int i = 0; i<LOWER_LEG.length; i++){
+    armRight[count++] = LOWER_ARM[i];
+  }
+  
+  rotPoint = getCenter(armRight);
+  pushMatrix();
+  translate(ONE_THIRD, -ONE_THIRD);
+  
+  scale(1.0/3.0);
+  translate(x, y);
+  rotate(angle4);
+  translate(-rotPoint[0], -rotPoint[1]);
+  drawUpperRightArm();
+  drawLowerRightArm();
+  popMatrix();
+  
+  
+  //draw randomly left arm===
+  x = random(-0.5, 0.5);
+  y = random(-0.5, 0.5);
+  while(sqrt( sq(x)+sq(y) )>0.5){
+    x = random(0, 1);
+    y = random(0, 1);
+  }
+  float[][] armLeft = new float[UPPER_ARM.length+LOWER_ARM.length][2];
+  count = 0;
+  for(int i = 0; i<UPPER_ARM.length; i++){
+    armLeft[count][0] = -UPPER_ARM[i][0];
+    armLeft[count][1] = UPPER_ARM[i][1];
+    count++;
+  }
+  for(int i = 0; i<LOWER_ARM.length; i++){
+    armLeft[count][0] = -LOWER_ARM[i][0];
+    armLeft[count][1] = LOWER_ARM[i][1];
+    count++;
+  }
+  
+  rotPoint = getCenter(armLeft);
+  pushMatrix();
+  translate(ONE_THIRD, -ONE_THIRD);
+  
+  scale(1.0/3.0);
+  translate(x, y);
+  rotate(angle5);
+  translate(-rotPoint[0], -rotPoint[1]);
+  drawUpperLeftArm();
+  drawLowerLeftArm();
+  
+  
+  popMatrix();
+  
+  
+}
+
 float[] getCenter(float[][] input){
   float x = 0.0;
   float y = 0.0;
@@ -390,8 +583,8 @@ float[] getCenter(float[][] input){
     x += input[i][0];
     y += input[i][1];
   }
-  x = x/4.0;
-  y = y/4.0;
+  x = x/input.length;
+  y = y/input.length;
   return new float[]{x, y};
 }
 
