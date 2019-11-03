@@ -110,7 +110,7 @@ void draw(){
  drawQuadBot2();
  drawQuadBot3();
  drawQuadBot4();
-  
+ drawQuadBot6();
  
   
 }
@@ -143,7 +143,7 @@ void drawQuadBot2(){
 }
 
 void drawQuadBot3(){
-  float[] headCenter = getHeadCenter();
+  float[] headCenter = getCenter(HEAD);
   float headCenterX = headCenter[0];
   float headCenterY = headCenter[1];
   
@@ -154,7 +154,6 @@ void drawQuadBot3(){
   translate(-headCenterX, -headCenterY);
   drawHead();
   drawTotalHead();
-  
   popMatrix();
   
 }
@@ -202,16 +201,113 @@ void drawQuadBot4(){
   
 }
 
-float[] getHeadCenter(){
-  float headCenterX = 0.0;
-  float headCenterY = 0.0;
-  for(int i = 0; i<HEAD.length; i++){
-    headCenterX += HEAD[i][0];
-    headCenterY += HEAD[i][1];
+void drawQuadBot6(){
+  pushMatrix();
+  translate(ONE_THIRD,0);
+  scale(1.0/3.0);
+  drawHead();
+  
+  //RightEyeBrow
+  //Rotate 20 degrees clockwise around their centre
+  float[] rightCentre = getCenter(EYEBROW);
+  pushMatrix();
+  translate(rightCentre[0], rightCentre[1]);
+  rotate(PI/9.0);
+  translate(-rightCentre[0], -rightCentre[1]);
+  drawRightEyeBrow();
+  popMatrix();
+  
+  //LeftEyeBrow
+  //Rotate 20 degrees counter-clockwise around their centre
+  float[][] leftEyeBrow = new float[EYEBROW.length][EYEBROW[0].length];
+  for(int i = 0; i<EYEBROW.length; i++){
+    leftEyeBrow[i][0] = -EYEBROW[i][0];
+    leftEyeBrow[i][1] = EYEBROW[i][1];
   }
-  headCenterX = headCenterX/4.0;
-  headCenterY = headCenterY/4.0;
-  return new float[]{headCenterX, headCenterY};
+  
+  float[] leftCentre = getCenter(leftEyeBrow);
+  pushMatrix();
+  translate(leftCentre[0], leftCentre[1]);
+  rotate(-(PI/9.0));
+  translate(-leftCentre[0], -leftCentre[1]);
+  drawLeftEyeBrow();
+  popMatrix();
+  
+  
+  drawRightEye();
+  drawLeftEye();
+  drawRightEyeBall();
+  drawLeftEyeBall();
+  drawRightEyeBall();
+  drawNose();
+  drawLowerRightAntenna();
+  drawLowerLeftAntenna();
+  
+  //UpperRightAntenna
+  //Rotate 105 degrees clockwise around their rotate point
+  float rightAntennaRotX = ((UPPER_ANTENNA[0][0]+UPPER_ANTENNA[3][0])+0.0)/2.0;
+  float rightAntennaRotY = ((UPPER_ANTENNA[0][1]+UPPER_ANTENNA[3][1])+0.0)/2.0;
+  pushMatrix();
+  translate(rightAntennaRotX, rightAntennaRotY);
+  rotate((7.0*PI)/12.0);
+  translate(-rightAntennaRotX, -rightAntennaRotY);
+  drawUpperRightAntenna();
+  popMatrix();
+  
+  //UpperLeftAntenna
+  //Rotate 105 degrees counter-clockwise around their rotate point
+  float leftAntennaRotX = (-(UPPER_ANTENNA[0][0]+UPPER_ANTENNA[3][0])+0.0)/2.0;
+  float leftAntennaRotY = ((UPPER_ANTENNA[0][1]+UPPER_ANTENNA[3][1])+0.0)/2.0;
+  pushMatrix();
+  translate(leftAntennaRotX, leftAntennaRotY);
+  rotate(-(7.0*PI)/12.0);
+  translate(-leftAntennaRotX, -leftAntennaRotY);
+  drawUpperLeftAntenna();
+  popMatrix();
+
+  drawTorso();
+  drawUpperRightLeg();
+  drawUpperLeftLeg();
+  drawLowerRightLeg();
+  drawLowerLeftLeg();
+  drawUpperRightArm();
+  drawUpperLeftArm();
+  
+  //LowerLeftArm
+  //Scale 50% of x and 150% of y arond their rotation point
+  float rightLArmX = ((LOWER_ARM[0][0]+LOWER_ARM[1][0])+0.0)/2.0;
+  float rightLArmY = ((LOWER_ARM[0][1]+LOWER_ARM[1][1])+0.0)/2.0;
+  pushMatrix();
+  translate(rightLArmX, rightLArmY);
+  scale(1.5, 0.5);
+  translate(-rightLArmX, -rightLArmY);
+  drawLowerRightArm();
+  popMatrix();
+  
+  //LowerRightArm
+  //Scale 50% of x and 150% of y arond their rotation point
+  float leftLArmX = (-(LOWER_ARM[0][0]+LOWER_ARM[1][0])+0.0)/2.0;
+  float leftLArmY = ((LOWER_ARM[0][1]+LOWER_ARM[1][1])+0.0)/2.0;
+  pushMatrix();
+  translate(leftLArmX, leftLArmY);
+  scale(1.5, 0.5);
+  translate(-leftLArmX, -leftLArmY);
+  drawLowerLeftArm();
+  popMatrix();
+  popMatrix();
+  
+}
+
+float[] getCenter(float[][] input){
+  float x = 0.0;
+  float y = 0.0;
+  for(int i = 0; i<input.length; i++){
+    x += input[i][0];
+    y += input[i][1];
+  }
+  x = x/4.0;
+  y = y/4.0;
+  return new float[]{x, y};
 }
 
 void drawQuadBot(){
