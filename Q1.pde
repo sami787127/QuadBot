@@ -111,6 +111,7 @@ void draw(){
  drawQuadBot3();
  drawQuadBot4();
  drawQuadBot6();
+ drawQuadBot7();
  
   
 }
@@ -296,6 +297,26 @@ void drawQuadBot6(){
   popMatrix();
   popMatrix();
   
+}
+
+void drawQuadBot7(){
+  pushMatrix();
+  translate(-ONE_THIRD,-ONE_THIRD);
+  scale(1.0/3.0);
+  
+  float[] headCentre = getCenter(HEAD);
+  float angle  = 0;
+  while(angle<=(2.0*PI)){
+    pushMatrix();
+    rotate(angle);
+    translate(headCentre[0], headCentre[1]);
+    scale(0.4);
+    translate(-headCentre[0], -headCentre[1]);
+    drawTotalHead();
+    angle += (2.0*PI)/12.0;
+    popMatrix();
+  }
+  popMatrix();
 }
 
 float[] getCenter(float[][] input){
